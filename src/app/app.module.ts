@@ -5,21 +5,36 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
 
+// Home Page
+import { LojaListaPage } from "../pages/loja-lista/loja-lista";
+
+import { AddLojaPage } from "../pages/add-loja/add-loja";
+
+import { AngularFireModule } from "angularfire2";
+import { AngularFireDatabaseModule } from "angularfire2/database";
+
+// Config Firebase
+import { FIREBASE_CONFIG } from "./firebase.credentials";
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    LojaListaPage,
+    AddLojaPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    // Inicializar AngularFire com as credenciais
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    // Importar o AngularFireDatabaseModule para as interações
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    LojaListaPage,
+    AddLojaPage
   ],
   providers: [
     StatusBar,
