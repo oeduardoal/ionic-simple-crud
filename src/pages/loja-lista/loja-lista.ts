@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ActionSheetController } from 'ionic-angular';
+import { NavController, NavParams, ActionSheetController, LoadingController, ToastController } from 'ionic-angular';
 import { AddLojaPage } from "../add-loja/add-loja";
 import { LojaItem } from "../../models/loja-item/loja-item";
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
+import { EditarLojaItemPage } from "../editar-loja-item/editar-loja-item";
 
 @Component({
   selector: 'page-loja-lista',
@@ -10,8 +11,19 @@ import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/databa
 })
 export class LojaListaPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController, private database: AngularFireDatabase) {
+  loading = this.loadingCtrl.create({
+    content: 'Please wait...'
+  });
+
+ 
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private actionSheetCtrl: ActionSheetController, private database: AngularFireDatabase,public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+
+    this.loading.present();
+
     this.lojaItemRef$ = this.database.list('loja-lista')
+
+    this.loading.dismiss();
   }
 
   ionViewDidLoad() {
@@ -33,6 +45,7 @@ export class LojaListaPage {
           text: 'Editar',
           handler: () => {
             // Abrir página de Editar e mandar o item como parametro
+            this.navCtrl.push(EditarLojaItemPage,{lojaItemId: lojaItem.$key })
           }
         },
         {
@@ -40,7 +53,13 @@ export class LojaListaPage {
           role: 'desctrutive',
           handler: () =>{
             // Deletar item
-            this.lojaItemRef$.remove(lojaItem.$key)
+           this.toastCtrl.create({
+              message: `Item ${lojaItem.itemName} Deletado`,
+              duration: 3000,
+              position: 'bottom'
+            }).present();
+            this.lojaItemRef$.remove(lojaItem.$key);
+            
           }
         },
         {

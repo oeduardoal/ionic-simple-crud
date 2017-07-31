@@ -1,18 +1,33 @@
 <!--
-  Generated template for the EditarLojaItemPage page.
+  Generated template for the AddLojaPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>EditarLojaItem</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>{{lojaItem.itemName}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <form (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label floating >Nome do Produto</ion-label>
+        <ion-input type="text" [(ngModel)]="lojaItem.itemName" name="itemName"></ion-input>
+      </ion-item>
+      <br/>
+      <ion-item>
+        <ion-label floating>Descrição do Produto</ion-label>
+        <ion-input type="text" [(ngModel)]="lojaItem.itemDesc" name="itemDesc"></ion-input>
+      </ion-item>
+      <br/>
+      <button ion-button full clear icon-left color="primary" type="submit">
+        <ion-icon name="add"></ion-icon>
+        Adicionar Item
+      </button>
+  </form>
 </ion-content>

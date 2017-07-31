@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the EditarLojaItemPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { AngularFireDatabase, FirebaseObjectObservable } from "angularfire2/database";
+import { LojaItem } from "../../models/loja-item/loja-item";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'page-editar-loja-item',
@@ -14,11 +10,30 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class EditarLojaItemPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  lojaItemSubscription: Subscription; 
+
+  lojaItemRef$: FirebaseObjectObservable<LojaItem>
+  lojaItem = {} as LojaItem;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private database: AngularFireDatabase) {
+    
+    const lojaItemId = this.navParams.get('lojaItemId');
+    console.log(lojaItemId);
+
+    this.lojaItemRef$ = this.database.object(`loja-lista/${lojaItemId}`);
+
+    this.lojaItemSubscription = this.lojaItemRef$.subscribe(lojaItem => this.lojaItem = lojaItem);
+    console.log(this.lojaItem);
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad EditarLojaItemPage');
+
+  onSubmit(){
+    this.lojaItemRef$.update(this.lojaItem);
+    this.navCtrl.pop();
+  }
+
+  ionViewDidLeave() {
+    this.lojaItemSubscription.unsubscribe();
   }
 
 }

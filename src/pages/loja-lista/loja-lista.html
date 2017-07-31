@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Itens Da Loja</ion-title>
+    <ion-title>Loja</ion-title>
     <ion-buttons end>
       <button ion-button icon-left (click)="navToAddLojaPage()">
         <ion-icon name="add"></ion-icon>
@@ -21,8 +21,8 @@
 <ion-content padding>
   <ion-list >
     <ion-item *ngFor="let item of lojaItemRef$ | async" (click)="selectLojaItem(item)" >
-      <h3>{{item.itemName}}</h3>
-      <h2>{{item.itemDesc}}</h2>
+      <h2>{{item.itemName}}</h2>
+      <h3>{{item.itemDesc}}</h3>
     </ion-item>
   </ion-list>
 </ion-content>

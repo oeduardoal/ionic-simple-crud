@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { LojaItem } from "../../models/loja-item/loja-item";
 
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database";
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'page-add-loja',
@@ -10,6 +11,8 @@ import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/databa
 })
 export class AddLojaPage {
 
+
+  lojaItemSubscription: Subscription; 
 
   // Criando o objeto baseado na interface dele
   lojaItem = {} as LojaItem;
@@ -30,8 +33,7 @@ export class AddLojaPage {
     */
     
   }
-
-  AddLojaItem(lojaItem: LojaItem){
+  onSubmit(){
 
     // Criando um objeto, onde eu posso trata-lo e depois envio para o firebase
     this.lojaItemRef$.push({

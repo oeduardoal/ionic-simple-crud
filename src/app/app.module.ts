@@ -10,6 +10,7 @@ import { MyApp } from './app.component';
 import { LojaListaPage } from "../pages/loja-lista/loja-lista";
 
 import { AddLojaPage } from "../pages/add-loja/add-loja";
+import { EditarLojaItemPage } from "../pages/editar-loja-item/editar-loja-item";
 
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
@@ -20,7 +21,8 @@ import { FIREBASE_CONFIG } from "./firebase.credentials";
   declarations: [
     MyApp,
     LojaListaPage,
-    AddLojaPage
+    AddLojaPage,
+    EditarLojaItemPage
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import { FIREBASE_CONFIG } from "./firebase.credentials";
   entryComponents: [
     MyApp,
     LojaListaPage,
-    AddLojaPage
+    AddLojaPage,
+    EditarLojaItemPage
   ],
   providers: [
     StatusBar,
